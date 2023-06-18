@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "game.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "math.h": "c",
+        "stdbool.h": "c",
+        "gl.h": "c",
+        "glu.h": "c",
+        "linked.h": "c",
+        "time.h": "c",
+        "winsock2.h": "c",
+        "crypt.h": "c",
+        "include.h": "c"
+    }
+}
