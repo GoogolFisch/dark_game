@@ -3,14 +3,12 @@
 void startGame(Game* game){
     //sockaddr_in
     char chptr[64];
-    bool running = true;
-    game->var = summonLHT();
-    while(running){
-        scanf("%64c",&chptr);
-        if (chptr[0] == 'e'){
-            running = false;
-        }
-        printf("%64c",&chptr);
-    }
-    freeLHT(game->var);
+    G_sock* g;
+    g = summonSocketUDP(127,0,0,1);
+    connectSocketUDP(g);
+    strcpy(chptr,"hello from c client!\0");
+    sendSocketUDP(g,chptr,21);
+    recvSocketUDP(g,chptr,64);
+    printf("%64c\n",chptr);
+    closeSocketUDP(g);
 }

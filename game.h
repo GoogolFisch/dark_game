@@ -3,6 +3,7 @@
 //#include "g_socket.h"
 #include "linked.h"
 #include "include.h"
+#include "g_socket.h"
 
 
 typedef struct Game{
