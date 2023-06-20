@@ -3,31 +3,33 @@
 // #ifdef __WIN32__
 // # include <winsock2.h>
 G_sock* summonSocketUDP(char a,char b,char c,char d){
-    G_sock* sock = malloc(sizeof(G_sock));
-    sock->socketID = socket(AF_INET,SOCK_DGRAM,0);
-
-    memset(sock->server,0,sizeof(struct sockaddr_in));
-
-    unsigned long uAddr = inet_addr("127.0.0.1");
-    printf("Address%i %lx\n",uAddr,uAddr);
-    sock->server->sin_addr.S_un.S_addr = uAddr;
-    sock->server->sin_family = AF_INET;
-    sock->server->sin_port = htons(25600);
-
-    return sock;
-}
-
-void connectSocketUDP(G_sock* sock){
-    int s = -1;
-/*#if defined(_WIN32) || defined(_WIN64)    
+    // wsa check if possible!
+#if defined(_WIN32) || defined(_WIN64)    
     WSADATA wsa;
     if(WSAStartup(MAKEWORD(2,2),&wsa) != 0){
         printf("\nError: Windows socket subsytsem could not be initialized. Error Code: %d. Exiting..\n", WSAGetLastError());
         perror("\nError: Windows socket subsytsem could not be initialized. Error Code: %d. Exiting..\n");
         exit(1);
     }
-#endif/**/
-    if(connect(s,(struct sockaddr*)(sock->server),sizeof(struct sockaddr_in)) < 0){
+#endif
+    G_sock* sock = malloc(sizeof(G_sock));
+    sock->socketID = socket(AF_INET,SOCK_DGRAM,0);
+    sock->server = malloc(sizeof(struct sockaddr_in));
+
+    memset(sock->server,0,sizeof(struct sockaddr_in));
+
+    unsigned long uAddr = inet_addr("127.0.0.1");
+    sock->server->sin_addr.S_un.S_addr = uAddr;
+    // sock->server->sin_addr.S_un.S_addr = a + b << 8 + c << 16 + d << 24;
+    sock->server->sin_family = AF_INET;
+    sock->server->sin_port = htons(9999);
+
+    return sock;
+}
+
+void connectSocketUDP(G_sock* sock){
+    int result = connect(sock->socketID,(struct sockaddr*)(sock->server),sizeof(*sock->server));
+    if(result < 0){
         printf("Error: Could not connect to server: %s. Exiting..\n", strerror(errno));
         perror("Error: Could not connect to server: %s. Exiting..\n");
         exit(1);
@@ -54,8 +56,12 @@ int recvSocketUDP(G_sock* sock,char* message,int size){
 }
 
 void closeSocketUDP(G_sock* sock){
+#if defined(_WIN32) || defined(_WIN64)  
     closesocket(sock->socketID);
     WSACleanup();
+#else
+    close(sock->socketID);
+#endif
 }
 // #else
 // # include <sys/socket.h>

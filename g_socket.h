@@ -3,7 +3,7 @@
 #include"include.h"
 
 #if defined(_WIN32) || defined(_WIN64)
-    #include <winsock.h>
+    #include <winsock2.h>
 #else
     #include <sys/socket.h>
     #include <arpa/inet.h>

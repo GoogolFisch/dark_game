@@ -5,7 +5,7 @@ goto make_main
 
 REM TOP LEVEL "LIBRARYS"
 :make_toplib
-D:\programmiersprachen\C\run\bin\gcc.exe -S g_socket.c -o build\g_socket.s
+D:\programmiersprachen\C\run\bin\gcc.exe -S g_socket.c -lwsock32 -o build\g_socket.s
 echo.
 echo g_socket: %errorlevel%
 D:\programmiersprachen\C\run\bin\gcc.exe -S linked.c -o build\linked.s
@@ -22,6 +22,6 @@ goto make_main
 
 REM THE MAIN LOOP
 :make_main
-D:\programmiersprachen\C\run\bin\gcc.exe main.c game.c build\linked.s build\crypt.s build\g_socket.s -o main.exe
+D:\programmiersprachen\C\run\bin\gcc.exe main.c game.c build\linked.s build\crypt.s build\g_socket.s -lwsock32 -o main.exe
 echo.
 echo main: %errorlevel% ----
