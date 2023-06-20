@@ -6,13 +6,13 @@ G_sock* summonSocketUDP(char a,char b,char c,char d){
     G_sock* sock = malloc(sizeof(G_sock));
     sock->socketID = socket(AF_INET,SOCK_DGRAM,0);
 
-    memset(&sock->server,0,sizeof(sock->server));
+    memset(sock->server,0,sizeof(struct sockaddr_in));
 
     unsigned long uAddr = inet_addr("127.0.0.1");
     printf("Address%i %lx\n",uAddr,uAddr);
-    sock->server.sin_addr.S_un.S_addr = uAddr;
-    sock->server.sin_family = AF_INET;
-    sock->server.sin_port = htons(25600);
+    sock->server->sin_addr.S_un.S_addr = uAddr;
+    sock->server->sin_family = AF_INET;
+    sock->server->sin_port = htons(25600);
 
     return sock;
 }
@@ -27,7 +27,7 @@ void connectSocketUDP(G_sock* sock){
         exit(1);
     }
 #endif/**/
-    if(connect(s,(struct sockaddr*)(&sock->server),sizeof(sock->server)) < 0){
+    if(connect(s,(struct sockaddr*)(sock->server),sizeof(struct sockaddr_in)) < 0){
         printf("Error: Could not connect to server: %s. Exiting..\n", strerror(errno));
         perror("Error: Could not connect to server: %s. Exiting..\n");
         exit(1);
@@ -35,7 +35,7 @@ void connectSocketUDP(G_sock* sock){
 
 }
 
-void sendSocketUDP(G_sock* sock,const char* message,int length){
+void sendSocketUDP(G_sock* sock,char* message,int length){
     int result = send(sock->socketID,message,length,0);
     if(result < 0){
         printf("Error: Could not send http request to server: %s. Exiting..\n", strerror(errno));
@@ -44,7 +44,7 @@ void sendSocketUDP(G_sock* sock,const char* message,int length){
     }
 }
 
-int recvSocketUDP(G_sock* sock,const char* message,int size){
+int recvSocketUDP(G_sock* sock,char* message,int size){
     int result = recv(sock->socketID,message,size,0);// message get size
     if(result < 0){
         printf("Error: Something wrong happened while getting reply from server: %s. Exiting..\n", strerror(errno));

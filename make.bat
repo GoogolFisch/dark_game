@@ -22,6 +22,6 @@ goto make_main
 
 REM THE MAIN LOOP
 :make_main
-D:\programmiersprachen\C\run\bin\gcc.exe main.c game.c build\linked.s build\crypt.s -o main.exe
+D:\programmiersprachen\C\run\bin\gcc.exe main.c game.c build\linked.s build\crypt.s build\g_socket.s -o main.exe
 echo.
 echo main: %errorlevel% ----

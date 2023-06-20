@@ -12,7 +12,6 @@ typedef struct Game{
     // struct LinkedHashTable* lht;
     struct LinkedHashTable* tokens;
     struct LinkedHashTable* var;
-    int socketID;
 } Game;
 void startGame(Game* game);
 
