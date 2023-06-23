@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "include.h": "c",
+        "game.h": "c",
+        "c_socket.h": "c",
+        "s_socket.h": "c",
+        "linked.h": "c"
+    }
+}

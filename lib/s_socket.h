@@ -1,6 +1,6 @@
 #ifndef G_SOCKET_H_
 #define G_SOCKET_H_
-#include"include.h"
+#include"../include.h"
 
 #if defined(_WIN32) || defined(_WIN64)
     #include <winsock2.h>
@@ -17,13 +17,13 @@
 
 typedef struct G_sock {
     int socketID;
-    struct sockaddr_in* server;
+    struct sockaddr_in* conn;
 } G_sock;
 
-G_sock* summonSocketUDP(char a,char b,char c,char d);
-void connectSocketUDP(G_sock* sock);
-void sendSocketUDP(G_sock* sock,char* message,int length);
-int recvSocketUDP(G_sock* sock,char* message,int size);
+G_sock* summonSocketUDP(long a,long b,long c,long d);
+void bindSocketUDP(G_sock* sock);
+void sendSocketUDP(G_sock* sock,G_sock* buff,char* message,int length);
+int recvSocketUDP(G_sock* sock,G_sock* buff,char* message,int size);
 void closeSocketUDP(G_sock* sock);
 
 #endif

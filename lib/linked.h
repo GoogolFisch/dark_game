@@ -1,7 +1,7 @@
 #ifndef LINKED_H_
 #define LINKED_H_
 
-#include "include.h"
+#include "../include.h"
 
 typedef struct LinkedList{
     // Warn index 0 is "funny"

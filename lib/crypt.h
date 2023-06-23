@@ -1,7 +1,7 @@
 #ifndef CRYPT_H_
 #define CRYPT_H_
 
-#include "include.h"
+#include "../include.h"
 
 #define RANDOM_SIZE 4
 

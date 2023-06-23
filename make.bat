@@ -5,13 +5,16 @@ goto make_main
 
 REM TOP LEVEL "LIBRARYS"
 :make_toplib
-D:\programmiersprachen\C\run\bin\gcc.exe -S g_socket.c -lwsock32 -o build\g_socket.s
+D:\programmiersprachen\C\run\bin\gcc.exe -S lib\c_socket.c -lwsock32 -o build\c_socket.s
 echo.
-echo g_socket: %errorlevel%
-D:\programmiersprachen\C\run\bin\gcc.exe -S linked.c -o build\linked.s
+echo c_socket: %errorlevel%
+D:\programmiersprachen\C\run\bin\gcc.exe -S lib\s_socket.c -lwsock32 -o build\s_socket.s
+echo.
+echo s_socket: %errorlevel%
+D:\programmiersprachen\C\run\bin\gcc.exe -S lib\linked.c -o build\linked.s
 echo.
 echo linked: %errorlevel%
-D:\programmiersprachen\C\run\bin\gcc.exe -S crypt.c -o build\crypt.s
+D:\programmiersprachen\C\run\bin\gcc.exe -S lib\crypt.c -o build\crypt.s
 echo.
 echo crypt: %errorlevel% ----
 
@@ -22,6 +25,9 @@ goto make_main
 
 REM THE MAIN LOOP
 :make_main
-D:\programmiersprachen\C\run\bin\gcc.exe main.c game.c build\linked.s build\crypt.s build\g_socket.s -lwsock32 -o main.exe
+D:\programmiersprachen\C\run\bin\gcc.exe client.c build\linked.s build\crypt.s build\c_socket.s -lwsock32 -o client.exe
 echo.
-echo main: %errorlevel% ----
+echo client: %errorlevel%
+D:\programmiersprachen\C\run\bin\gcc.exe server.c build\linked.s build\crypt.s build\s_socket.s -lwsock32 -o server.exe
+echo.
+echo server: %errorlevel% ----

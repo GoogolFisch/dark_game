@@ -22,20 +22,22 @@ def call_server():
         c_s.sendto(m,addr)
         print(c_s.recvfrom(64))
 
-if __name__ != "__main__" or len(sys.argv) > 1:exit()
-s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-s.bind(("",PORT))
+def server():
+    s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+    s.bind(("",PORT))
 
-try:
-    message,address = s.recvfrom(64)
-    print(message)
-    print(address)
-    s.sendto(b"hello from server!",address)
-except Exception as e:
-    print(e)
-    exc_type, exc_value, exc_traceback = sys.exc_info()
-    traceback.print_exc()
+    try:
+        message,address = s.recvfrom(64)
+        print(message)
+        print(address)
+        s.sendto(b"hello from server!",address)
+    except Exception as e:
+        print(e)
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        traceback.print_exc()
 
-try:s.close()
-except Exception as e:
-    print(f"closeing:{e}")
+    try:s.close()
+    except Exception as e:
+        print(f"closeing:{e}")
+
+if __name__ == "__main__" and len(sys.argv) < 2:server()
