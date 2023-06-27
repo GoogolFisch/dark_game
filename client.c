@@ -25,13 +25,11 @@ void startClient(struct Game* game){
     char chptr[64];
     G_sock* g;
     g = summonSocketUDP(127,0,0,1);
+
     // connectSocketUDP(g);
     strcpy(chptr,"hello from c client!\0");
     sendSocketUDP(g,chptr,21);
-    for(carryCheck=0;carryCheck<10;carryCheck++){
-        Sleep(1000);
-        recvSocketUDP(g,chptr,64);
-    }
+    recvSocketUDP(g,chptr,64);
     printf("%s\n",chptr);
     closeSocketUDP(g);
 }

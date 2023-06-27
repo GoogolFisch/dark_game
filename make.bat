@@ -1,6 +1,7 @@
 @echo off
 if "%1" == "tll" goto make_toplib
 if "%1" == "a" goto make_toplib
+if "%1" == "test" goto test
 goto make_main
 
 REM TOP LEVEL "LIBRARYS"
@@ -31,3 +32,12 @@ echo client: %errorlevel%
 D:\programmiersprachen\C\run\bin\gcc.exe server.c build\linked.s build\crypt.s build\s_socket.s -lwsock32 -o server.exe
 echo.
 echo server: %errorlevel% ----
+goto exit
+:test
+D:\programmiersprachen\C\run\bin\gcc.exe test/c.c -lwsock32 -o c.exe
+echo.
+echo client: %errorlevel%
+D:\programmiersprachen\C\run\bin\gcc.exe test/s.c -lwsock32 -o s.exe
+echo.
+echo server: %errorlevel% ----
+:exit

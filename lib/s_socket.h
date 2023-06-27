@@ -16,11 +16,14 @@
 // #endif
 
 typedef struct G_sock {
+    bool hadErr;
+    bool doErr;
+    int length;
     int socketID;
     struct sockaddr_in* conn;
 } G_sock;
 
-G_sock* summonSocketUDP(long a,long b,long c,long d);
+G_sock* summonSocketUDP();
 void bindSocketUDP(G_sock* sock);
 void sendSocketUDP(G_sock* sock,G_sock* buff,char* message,int length);
 int recvSocketUDP(G_sock* sock,G_sock* buff,char* message,int size);

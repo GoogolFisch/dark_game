@@ -16,6 +16,9 @@
 // #endif
 
 typedef struct G_sock {
+    bool hadErr;
+    bool doErr;
+    int length;
     int socketID;
     struct sockaddr_in* server;
 } G_sock;
