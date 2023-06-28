@@ -4,6 +4,7 @@
         "game.h": "c",
         "c_socket.h": "c",
         "s_socket.h": "c",
-        "linked.h": "c"
+        "linked.h": "c",
+        "winsock2.h": "c"
     }
 }

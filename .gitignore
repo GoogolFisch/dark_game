@@ -1,7 +1,6 @@
 build/
 test/
 .key
-.vscode/
 
 # Prerequisites
 *.d

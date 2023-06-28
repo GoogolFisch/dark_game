@@ -9,6 +9,7 @@ struct Game{
     // struct LinkedHashTable* lht;
     struct LinkedHashTable* tokens;
     struct LinkedHashTable* var;
+    G_sock* server;
 };
 void startClient(struct Game* game);
 
@@ -23,13 +24,12 @@ void startClient(struct Game* game){
     //sockaddr_in
     int carryCheck = 0;
     char chptr[64];
-    G_sock* g;
-    g = summonSocketUDP(127,0,0,1);
+    game->server = summonSocketUDP(127,0,0,1);
 
     // connectSocketUDP(g);
     strcpy(chptr,"hello from c client!\0");
-    sendSocketUDP(g,chptr,21);
-    recvSocketUDP(g,chptr,64);
+    sendSocketUDP(game->server,chptr,21);
+    recvSocketUDP(game->server,chptr,64);
     printf("%s\n",chptr);
-    closeSocketUDP(g);
+    closeSocketUDP(game->server);
 }

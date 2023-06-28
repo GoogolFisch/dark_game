@@ -4,11 +4,13 @@
 #include "lib/s_socket.h"
 
 struct Game{
-    int num;
     // struct LinkedList* ll;
     // struct LinkedHashTable* lht;
-    struct LinkedHashTable* tokens;
-    struct LinkedHashTable* var;
+
+    int num;
+
+    struct LinkedList* connections;
+    G_sock* server;
 };
 void startServer(struct Game* game);
 
@@ -22,27 +24,23 @@ int main(){
 void startServer(struct Game* game){
     //sockaddr_in
     char chptr[64];
-    G_sock* g;
     G_sock* buff;
     int n;
     buff = malloc(sizeof(G_sock));
     buff->length = sizeof(struct sockaddr_in);
     buff->conn = malloc(buff->length);
     // memset(&buff->conn,0,sizeof(struct sockaddr_in));
-    g = summonSocketUDP();
+    game->server = summonSocketUDP();
     // g->doErr = true;
     while(1){
-        n = recvSocketUDP(g,buff,chptr,64);
+        n = recvSocketUDP(game->server,buff,chptr,64);
         if(n >= 0){
             printf("%s\n",chptr);
             printf("%lx\n",buff->conn->sin_addr.S_un.S_addr);
-            sendSocketUDP(g,buff,"Got your c message\n\0",20);
+            sendSocketUDP(game->server,buff,"Got your c message\n\0",20);
         }
         Sleep(100);
     }
-    // chptr[n] = '\0';
-    // strcpy(chptr,"hello from c server!\0");
-    // sendSocketUDP(g,buff,chptr,21);
     printf("%s\n",chptr);
-    closeSocketUDP(g);
+    closeSocketUDP(game->server);
 }
