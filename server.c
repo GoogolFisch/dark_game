@@ -15,8 +15,7 @@ struct Game{
 void startServer(struct Game* game);
 
 int main(){
-    void* space = malloc(sizeof(struct Game));
-    struct Game* g = space;
+    struct Game* g = malloc(sizeof(struct Game));
     startServer(g);
     free(g);
     return 0;

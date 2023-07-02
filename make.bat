@@ -26,10 +26,10 @@ goto make_main
 
 REM THE MAIN LOOP
 :make_main
-D:\programmiersprachen\C\run\bin\gcc.exe client.c build\linked.s build\crypt.s build\c_socket.s -lwsock32 -o client.exe
+D:\programmiersprachen\C\run\bin\gcc.exe -mwindows client.c build\linked.s build\crypt.s build\c_socket.s -lwsock32 "D:\programmiersprachen\C\dark_game\SDL2.dll" -o client.exe
 echo.
 echo client: %errorlevel%
-D:\programmiersprachen\C\run\bin\gcc.exe server.c build\linked.s build\crypt.s build\s_socket.s -lwsock32 -o server.exe
+D:\programmiersprachen\C\run\bin\gcc.exe -mwindows server.c build\linked.s build\crypt.s build\s_socket.s -lwsock32 -o server.exe
 echo.
 echo server: %errorlevel% ----
 goto exit
